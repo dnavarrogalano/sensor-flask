@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<script>
+function getSensor()
+{
+
+
+
+$.ajax({
+	url: 'rest/sensor/2',
+	type: 'GET',
+	dataType: 'json',
+	data: {id: 2, ubicacion: 'location B+'},
+})
+.done(function(data) {
+	console.log(data.ubicacion);
+	
+	v  = document.getElementById("txtinput");
+	v.value = data.ubicacion;
+	console.log("success");
+})
+.fail(function() {
+	console.log("error");
+})
+.always(function() {
+	console.log("complete");
+});
+}
+
+function putMedicion()
+{
+
+	v  = document.getElementById("txtputmed");
+
+
+$.ajax({
+	url: 'rest/medicion/2',
+	type: 'POST',
+	dataType: 'json',
+	data: {'sensor': 2, 'valor' : v.value},
+})
+.done(function(data) {
+	console.log(data.id);
+	
+	v.value = data.id;
+	console.log("success");
+})
+.fail(function() {
+	console.log("error");
+})
+.always(function() {
+	console.log("complete");
+});
+}
+
+</script>
+
+<div class="panel panel-info">
+	  <div class="panel-heading">
+			<h3 class="panel-title">Panel title</h3>
+	  </div>
+	  <div class="panel-body">
+			<input type="text" name="" id="txtinput" class="form-control" value="" required="required" pattern="" title="">
+<button type="button" class="btn btn-default" onclick="javascript:getSensor()">button</button>
+
+	  </div>
+</div>
+<div class="panel panel-info">
+	  <div class="panel-heading">
+			<h3 class="panel-title">Medicion</h3>
+	  </div>
+	  <div class="panel-body">
+			<input type="text" name="" id="txtputmed" class="form-control" value="" required="required" pattern="" title="">
+<button type="button" class="btn btn-default" onclick="javascript:putMedicion()">button</button>
+
+	  </div>
+</div>
+{% endblock content %}
